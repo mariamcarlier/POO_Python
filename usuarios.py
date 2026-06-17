@@ -26,7 +26,7 @@ lista_usuarios= [] # Lista global para guardar datos
 class Usuario:
      #Crear una funcion para el CONSTRUCTOR
      def __init__(self, id_usuario:int ,  documento, nombre:str , apellido , correo, telefono ,direccion): #parametro de entrada
-          # El selfparámetro debe ser el primer parámetro de cualquier método de la clase. 
+          # El (parámetro self) debe ser el primer parámetro de cualquier método de la clase. 
           self.id_usuario = id_usuario
           self.documento = documento
           self.nombre = nombre
