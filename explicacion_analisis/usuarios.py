@@ -37,6 +37,8 @@ class Usuario:
      
      def saludar (self):
          print(f"Hola, mi nombre es {self.nombre} {self.apellido}")
+     #def encriptar_contraseña(self, contraseña):
+              #print(f"Contraseña encriptada: {contraseña}")
 
     # Metodos Base de CRUD (~LISTA~)
         #CREATE
@@ -60,7 +62,7 @@ class Usuario:
                lista_usuarios.remove(self)
                print(f"✅ Éxito: El usuario {self.nombre} no se encuentra en el sistema.")
           else:
-               print(f"☣️ Advertencia: El usuario {self.nombre} no existe")
+               print(f"☣️ Advertencia: El usuario {self.nombre} no existe/ no se encuentra en el sistema.")
 
 #Creando una Instancia de la clase usuario
 usuario_1 = Usuario(1,1057856734, "Falcao", "García", "fgarcia@gmail.com",3124567892, "Calle 123")
@@ -102,4 +104,41 @@ usuario_2.ver_usuario
 usuario_1.actualizar_usuarios("Messi", "Ronaldo")
 usuario_1.ver_usuario()
 
-#
+print("\n ===== APLICACIÓN DE LOS 4 PILARES DE LA POO ===== \n")
+#Buenas practicas (crear un nuevo archivo de la clase nueva(si es hija importar de la superclase ))
+ 
+# herencia y encapsulamieneto aprendiz
+#solo toca ponerlo (una clase) como parametro de entrada la superclase a una hija
+#se esta usando el mismo constructor 
+
+class Aprendiz(Usuario):
+     def __init__(self, id_usuario:int ,  documento, nombre:str , apellido , correo, telefono ,direccion, programa , ficha, competencias = None): #se llama los mismos atributos del constructor principal/ por CONVENCION Y NORMA
+
+          #Usamos super() para llamar al constructor de la clase padre (Usuario)
+          #va sin self ya no referencia la clase anterior / se esta haciendo referencia a la clase padre
+          super().__init__(id_usuario, documento, nombre, apellido, correo, telefono, direccion)
+
+          #Atributos propios del Aprendiz
+          self.programa = programa
+          self.ficha = ficha
+          self.competencias = competencias
+
+aprendiz_1 = (12,10573872836, "rafael", "luñez", "prorafa1@hotmail.com", 3142345678, "Calle 220", "Análisis y Desarrollo de Software","2550001")
+
+aprendiz_2 = (22, 1057980449 , "Amelie", "Carlier Alvarado" , "ameliecarlierdesign@gmail.com" , 3003409567, "Cra 16 8" , "Multimedia" , "33217893")
+
+
+class Instructor(Usuario):
+    def __init__(self, id_usuario, documento, nombre, apellido, correo, telefono, direccion, perfil_profesional, anios_experiencia):
+        
+        super().__init__(id_usuario, documento, nombre, apellido, correo, telefono, direccion)
+
+     # Atributos propios del Instructor
+        self.perfil_profesional = perfil_profesional
+        self.anios_experiencia = anios_experiencia
+
+instructor_felipe = Instructor(1, 1213121, "Felipe","Sandoval", "afsandoval@gmail.com","321481513", "Carrera 123","Análisis y Desarrollo de Software","2550001" )
+print(instructor_felipe.nombre )
+
+
+print(f"Imprimir atributo privado {aprendiz_1.get_resultados }")
