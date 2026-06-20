@@ -115,12 +115,12 @@ Crear objetos c1 = Cat()yf1 = Fox()
 Llamar sound()a ambos objetos"""
 class Cat:
     def sound(self):
-            print("miau")
+        print("mmiau")
 
 #Crear la clase Zorro
 class Fox:
     def sound(self):
-            print("¡Wa-pa-pa-pa-pa-pow!")
+        print("¡Wa-pa-pa-pa-pa-pow!")
 
 #Crear objetos y bucle 
 c1 = Cat()

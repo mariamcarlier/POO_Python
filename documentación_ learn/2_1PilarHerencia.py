@@ -76,11 +76,11 @@ class Animal:
     def __init__(self, name):
         self.name = name
 
-class Dog(Animal):
     def speak(self):
         print(f"{self.name} says: Woof!")
-    pass
 
+class Dog(Animal):
+    pass
 d1 = Dog("Rex")
 d1.speak()
 # Resultado: Rex says: Woof!
