@@ -1,0 +1,1 @@
+# ← clase independiente (asociación, no herencia)

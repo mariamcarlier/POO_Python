@@ -49,55 +49,25 @@ print(p1.get_age())
 p1.set_age(26)
 print(p1.get_age())#Utilizando un método getter para acceder a una propiedad privada:🎖️
 
-print("="*50)
-print("\ EJEMPLO DE APLICACION \n Y LA IMPORTANCIA DE UTILIZAR LA ENCAPSULACIÒN")
-print("="*50+"\n")
-print("🟩 VENTAJAS 🟩\n" \
-" ✅ Protección de datos: Evita la modificación accidental de datos.\n" 
-" ✅ Validación: Puede validar los datos antes de configurarlos.\n"
-" ✅ Flexibilidad: La implementación interna puede cambiar sin afectar al código externo.\n"
-" ✅ Control: Usted tiene control total sobre cómo se accede a los datos y cómo se modifican.\n")
+#2. METODOS PRIVADOS
+#También SE puede hacer que los métodos sean privados utilizando el prefijo de doble guion bajo:
+class Calculator:
+  def __init__(self):
+    self.result = 0
 
-class Student:
-  def __init__(self, name):
-    self.name = name
-    self.__grade = 0
+  def __validate(self, num):#aqui validate se conviete en un metodo privado
+    if not isinstance(num, (int, float)):
+      return False
+    return True
 
-  def set_grade(self, grade):
-    if 0 <= grade <= 100:
-      self.__grade = grade
+  def add(self, num):
+    if self.__validate(num):
+      self.result += num
     else:
-      print("Grade must be between 0 and 100")
+      print("Invalid number")
 
-  def get_grade(self):
-    return self.__grade
-
-  def get_status(self):
-    if self.__grade >= 60:
-      return "Passed"
-    else:
-      return "Failed"
-
-student = Student("Emil")
-student.set_grade(85)
-print(student.get_grade())
-print(student.get_status())
-
-print("="*50)
-print("\ EJEMPLO DE APLICACION \n PROPIEDADES PROTEGIDAS #")
-print("="*50)
-print("🟡NOTA:\n \
-      El guion bajo simple _es solo una convención.\n Indica a otros programadores que la propiedad está destinada a uso interno,\n pero Python no impone esta restricción.🟡")
-print("="*50 +"\n")
-print(" Ejercicio: Ejemplo \n ")
-
-
-class Person:
-  def __init__(self, name, salary):
-    self.name = name
-    self._salary = salary # Protected property
-
-p1 = Person("Linus", 50000)
-print(p1.name)
-print(p1._salary) # Can access, but shouldn't
-print("="*50)
+calc = Calculator()
+calc.add(10)
+calc.add(5)
+print(calc.result)
+# calc.__validate(5) # This would cause an error
