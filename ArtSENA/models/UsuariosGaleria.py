@@ -53,17 +53,14 @@ class UsuarioGaleria:
     # MÉTODOS DE SEGURIDAD (manejo de la contraseña)
     # ------------------------------------------------------------------
 
-    def encriptarContraseña(self):
+    def encriptarContraseña(self): # Simula la encriptación de la contraseña actual del usuario.
         """
-        Simula la encriptación de la contraseña actual del usuario.
-
         En un sistema real, aquí se usaría una librería de hashing como bcrypt o hashlib.
-          📚Para fines educativos del ejercicio,se simula anteponiendo un prefijo "hash_" a la contraseña.
-
-        🔁Retorna: -> str: la contraseña "encriptada".
+          📚Para fines educativos del ejercicio,se simula anteponiendo un prefijo "hash_" a la contraseña..
         """
         self.__contraseña = f"hash_{self.__contraseña}"
         return self.__contraseña
+    #🔁Retorna: -> str: la contraseña "encriptada"
 
     def verificarContraseña(self, clave_ingresada: str) -> bool:
         """
@@ -78,8 +75,7 @@ class UsuarioGaleria:
         return self.__contraseña == clave_ingresada
 
     def cambiarContraseña(self, clave_actual: str, clave_nueva: str) -> str:
-        """
-        Cambia la contraseña del usuario, pero SOLO si primero se demuestra conocer la contraseña actual. 
+        """Cambia la contraseña del usuario, pero SOLO si primero se demuestra conocer la contraseña actual. 
         Esta validación interna reemplaza la necesidad de un método separado de "validar",
         manteniendo el código más simple sin perder el principio de encapsulamiento:
          el atributo __contraseña nunca se modifica sin pasar por esta verificación.

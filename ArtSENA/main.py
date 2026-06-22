@@ -1,5 +1,7 @@
 # ← Mi punto de entrada para probar todo junto, ya que mi metodo en polimorfismo es mostrarpanel
-"""from models.UsuariosGaleria import UsuarioGaleria
+from models.UsuariosGaleria import UsuarioGaleria
+from services.Gestor_Galeria import GestorGaleria #2
+from models.Cliente import Cliente #3
 
 # Instanciamos un usuario base (en la práctica nunca se usa
 # UsuarioGaleria directamente, siempre sus subclases, pero
@@ -19,9 +21,9 @@ print(usuario_prueba.cambiarContraseña("super_aprendiz22", "nueva123"))  # ✅ 
 print(usuario_prueba.verificarContraseña("nueva123"))           # True
 print(usuario_prueba.mostrarPanel())       # Panel genérico de usuario"""
 
-from models.UsuariosGaleria import UsuarioGaleria
-from services.Gestor_Galeria import GestorGaleria
-
+# ----------------------------------------------------------------------------------
+print("\n")
+# ----------------------------------------------------------------------------------
 # Creamos el gestor (vacío al inicio)
 gestor = GestorGaleria()
 print(gestor.listar_usuarios())  # 📭 No hay usuarios registrados aún.
@@ -47,4 +49,33 @@ print(gestor.ver_usuario(1))            # nombre actualizado
 
 # DELETE
 print(gestor.eliminar_usuario(2))       # ✅ Usuario 'Frida Kahlo' eliminado...
-print(gestor.listar_usuarios())         # solo queda Gema
+print(gestor.listar_usuarios())         # solo queda Gema 
+
+# ----------------------------------------------------------------------------------
+print("\n") #3
+# ----------------------------------------------------------------------------------
+# Creamos un Cliente — observa que automáticamente tiene id_usuario,
+# nombre, correo, telefono y contraseña, sin que Cliente los haya
+# vuelto a definir (eso es HERENCIA en acción)
+cliente1 = Cliente(
+    id_usuario=10,
+    nombre="Andrea Gómez",
+    correo="andrea.gomez@correo.com",
+    telefono="+57 311 222 3344",
+    contraseña="clienteSeguro1",
+    presupuesto=500000.0
+)
+
+print(cliente1.nombre)                    # Andrea Gómez (heredado)
+print(cliente1.verificarContraseña("clienteSeguro1"))  # True (heredado)
+print(cliente1.mostrarPanel())            # Panel propio de Cliente (polimorfismo)
+
+# Lo registramos también en el gestor, para confirmar que GestorGaleria
+# funciona igual de bien con una subclase (esto es polimorfismo aplicado
+# desde el lado del gestor)
+print(gestor.crear_usuario(cliente1))
+print(gestor.ver_usuario(10))
+
+# ----------------------------------------------------------------------------------
+print("\n")
+# ----------------------------------------------------------------------------------
