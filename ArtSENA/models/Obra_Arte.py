@@ -64,25 +64,20 @@ class ObraArte:
     def precio(self):
         return self._precio
 
-    def actualizarPrecio(self, nuevo_precio: float) -> str:
-        """
-        Única vía autorizada para modificar el precio de la obra.
-        Incluye validación para evitar precios negativos o en cero.
+    def actualizarPrecio(self, nuevo_precio: float) -> str: #nuevo_precio (float): nuevo valor comercial de la obra.
+        """ Única vía autorizada para modificar el precio de la obra.
+        Incluye validación para evitar precios negativos o en cero. """
 
-        Args:
-            nuevo_precio (float): nuevo valor comercial de la obra.
-
-        Returns:
-            str: mensaje de confirmación o de error.
-        """
         if nuevo_precio <= 0:
             return "❌ El precio debe ser mayor a cero."
         self._precio = nuevo_precio
         return f"✅ Precio actualizado a: {nuevo_precio}."
+    #🔁Retorna : str: mensaje de confirmación o de error.
 
     # ------------------------------------------------------------------
     # MÉTODOS PROPIOS DE OBRAARTE
     # ------------------------------------------------------------------
+    #Consulta y describe el estado actual de la obra.
     def verificarDisponibilidad(self) -> str:
         mensajes = {
             "Disponible": f"✅ '{self.titulo}' está disponible para compra.",
@@ -90,12 +85,7 @@ class ObraArte:
             "Vendida":    f"🔴 '{self.titulo}' ya fue vendida."
         }
         return mensajes[self.disponibilidad]
-        """
-        Consulta y describe el estado actual de la obra.
 
-        Returns:
-            str: mensaje legible con el estado actual.
-        """
 
     def mostrarPanel(self) -> str:
 
