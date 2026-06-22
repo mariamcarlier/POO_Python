@@ -22,6 +22,24 @@ obtener o establecer su valor (métodos getter y setter). Esto se suele hacer ut
     En lugar de definir métodos clásicos como get_valor(), la práctica estándar y más 🐍🐍"pythonica"🐍🐍
     es utilizar el decorador @property para crear accesores que se leen como atributos normales⭐"""
 
+print("\n 🐍 la estructura general de una función decoradora en Python:")
+def decorador(f): #(las chispas de chocolate 🍦✨) que toma una función f como argumento
+    def funcion_nueva():
+        print("Funcionalidad extra")
+        f() #es llamada dentro de funcion_nueva para obtener la misma funcionalidad y agregar funcionalidad nueva antes de la llamada a la función
+    return funcion_nueva # La función decoradora retorna la función anidada funcion_nueva.
+
+@decorador #FUNCION DECORADORA 🍦 
+def funcion_inicial():
+    print("Funcionalidad inicial")
+
+funcion_inicial()
+#Resultado:
+#Funcionalidad extra
+#Funcionalidad inicial
+
+print("="*40)
+
 class Temperature:
     def __init__(self, celsius):
         # Internal, "private" variable
@@ -51,7 +69,7 @@ print(current_temp)
 t.temp = 30 # Accesses the setter
 # Outputs: Setting temperature...
 
-print("\n 🐍ejercicio 2 - Aplicacion de sintaxis:")
+print("\n 🐍 ejercicio 2 - Aplicacion de sintaxis:")
 #En la programación orientada a objetos, se recomienda ocultar los datos usando un guion bajo antes del nombre del atributo (ej. _edad) y exponer un método decorado con @property
 class Persona:
     def __init__(self, nombre, edad):
@@ -71,7 +89,7 @@ Los getters son vitales para cumplir con el principio de encapsulación y ofrece
    - Control de lectura: Puedes procesar o transformar el dato antes de entregarlo.
    - Compatibilidad: Te permite cambiar la lógica interna de la clase sin alterar el código de otros programas que utilizan tu objeto."""
 
-print("\n 🐍ejercicio 3 - El método .get() en diccionarios:")
+print("\n 🐍 ejercicio 3 - El método .get() en diccionarios:")
 #Si la consulta se refiere a la función nativa .get() para diccionarios, esta se usa para acceder a una clave de forma segura. 
 #Si la clave no existe, no arroja un error, sino que devuelve None (o un valor predeterminado que definas).
 
@@ -84,3 +102,43 @@ print(usuario.get("nombre"))  # Imprime: Carlos
 # Obtener clave que no existe, evitando error
 print(usuario.get("apellido"))  # Imprime: None
 print(usuario.get("apellido", "No especificado"))  # Imprime: No especificado
+
+print("\n 🐍 @property: sintaxis y lógica:")
+class Casa:
+
+	def __init__(self, precio):
+		self._precio = precio
+
+	@property
+	def precio(self):
+		return self._precio
+	
+	@precio.setter
+	def precio(self, precio_nuevo):
+		if precio_nuevo > 0 and isinstance(precio_nuevo, float):
+			self._precio = precio_nuevo # se considera "protegido"
+		else:
+			print("Por favor ingrese un precio valido.")
+
+	@precio.deleter
+	def precio(self):
+		del self._precio
+
+# EXISTEN 3 METODOS PARA UNA PROPIEDAD:
+          #Un getter - para acceder al valor del atributo.
+          #Un setter - para actualizar el valor del atributo.
+          #Un deleter - para eliminar el atributo de la instancia
+
+          # ejemplo metodo setter
+casa = Casa(50000.0)    # Crear instancia
+casa.precio = 45000.0   # Actualizar valor
+casa.precio             # Acceder al valor
+#Nota cómo no estamos cambiando la sintaxis pero ahora usamos un intermediario (el setter) para validar el argumento antes de asignarlo. El valor nuevo (45000.0) se pasa como argumento para el setter
+
+
+casa = Casa(50000.0)
+casa.precio = -50
+# Resultado :Por favor ingrese un valor valido
+"""💡 Dato: esto prueba que el método setter sí está actuando como intermediario. 
+Se llama "detrás de escenas" cuando intentamos actualizar el valor y el mensaje 
+se muestra cuando el valor no es válido."""
