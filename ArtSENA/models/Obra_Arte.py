@@ -28,32 +28,7 @@ Pilares de POO aplicados en este archivo:
 
 from datetime import date
 
-
 class ObraArte:
-    """
-    Representa una obra de arte dentro del catálogo de ArtSENA.
-    Puede ser de cualquier tipo: pintura, escultura, obra digital, etc.
-
-    Atributos:
-        id_obra (int): identificador único de la obra. Público.
-        titulo (str): nombre de la obra. Público.
-        autor (str): nombre del artista creador. Público.
-        _precio (float): valor comercial de la obra. PROTEGIDO,
-            accesible mediante propiedad de solo lectura; se modifica
-            solo a través de actualizarPrecio().
-        tecnica (str): técnica usada (ej. 'Óleo', 'Digital', 'Escultura').
-            Público.
-        anio (int): año de creación. Público.
-        dimensiones (str): medidas físicas o digitales de la obra
-            (ej. '120x90 cm' o '4K 3840x2160 px'). Público.
-        disponibilidad (str): estado actual de la obra. Solo puede
-            tomar tres valores: 'Disponible', 'Reservada', 'Vendida'.
-            Público porque el sistema necesita consultarlo y cambiarlo
-            en el flujo de compra.
-        fecha_registro (date): fecha en que la obra fue registrada
-            en la plataforma. Se asigna automáticamente al crear el
-            objeto, no se recibe como parámetro.
-    """
 
     # Valores válidos para disponibilidad (constante de clase)
     ESTADOS_VALIDOS = ("Disponible", "Reservada", "Vendida")
@@ -108,35 +83,22 @@ class ObraArte:
     # ------------------------------------------------------------------
     # MÉTODOS PROPIOS DE OBRAARTE
     # ------------------------------------------------------------------
-
     def verificarDisponibilidad(self) -> str:
-        """
-        Consulta y describe el estado actual de la obra.
-
-        Returns:
-            str: mensaje legible con el estado actual.
-        """
         mensajes = {
             "Disponible": f"✅ '{self.titulo}' está disponible para compra.",
             "Reservada":  f"🕐 '{self.titulo}' está reservada actualmente.",
             "Vendida":    f"🔴 '{self.titulo}' ya fue vendida."
         }
         return mensajes[self.disponibilidad]
-
-    def mostrarPanel(self) -> str:
         """
-        Muestra la ficha completa de la obra, tal como aparecería
-        en el catálogo público de ArtSENA.
-
-        Nota: aunque ObraArte no hereda de UsuarioGaleria y no
-        participa en el polimorfismo principal del sistema de login,
-        sí implementa mostrarPanel() como buena práctica de diseño
-        uniforme: cualquier entidad del sistema que tenga una "vista
-        pública" expone ese comportamiento con el mismo nombre.
+        Consulta y describe el estado actual de la obra.
 
         Returns:
-            str: ficha completa de la obra.
+            str: mensaje legible con el estado actual.
         """
+
+    def mostrarPanel(self) -> str:
+
         return (
             f"🖼️  ══════════════════════════════\n"
             f"   {self.titulo.upper()}\n"
@@ -150,3 +112,17 @@ class ObraArte:
             f"   Registrada  : {self.fecha_registro}\n"
             f"   ══════════════════════════════"
         )
+
+        """
+        Muestra la ficha completa de la obra, tal como aparecería
+        en el catálogo público de ArtSENA.
+
+        Nota: aunque ObraArte no hereda de UsuarioGaleria y no
+        participa en el polimorfismo principal del sistema de login,
+        sí implementa mostrarPanel() como buena práctica de diseño
+        uniforme: cualquier entidad del sistema que tenga una "vista
+        pública" expone ese comportamiento con el mismo nombre.
+
+        Returns:
+            str: ficha completa de la obra.
+        """

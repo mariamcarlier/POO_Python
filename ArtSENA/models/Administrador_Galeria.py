@@ -17,8 +17,19 @@ Pilares de POO aplicados en este archivo:
 
 from models.UsuariosGaleria import UsuarioGaleria
 
-
 class AdministradorGaleria(UsuarioGaleria):
+
+
+    def __init__(self, id_usuario: int, nombre: str, correo: str,
+                 telefono: str, contraseña: str, modulo_asignado: str,
+                 nivel_acceso: int = 1):
+        # HERENCIA: reutilizamos toda la lógica de UsuarioGaleria
+        super().__init__(id_usuario, nombre, correo, telefono, contraseña)
+
+        # Atributos exclusivos de AdministradorGaleria
+        self.modulo_asignado = modulo_asignado
+        self._nivel_acceso = nivel_acceso
+
     """
     Representa al rol de gobernanza de la plataforma ArtSENA: la
     persona encargada de aprobar publicaciones, gestionar comisiones
@@ -35,17 +46,6 @@ class AdministradorGaleria(UsuarioGaleria):
             de obras" o "Finanzas"). Pública, ya que es información
             organizativa visible en el panel.
     """
-
-    def __init__(self, id_usuario: int, nombre: str, correo: str,
-                 telefono: str, contraseña: str, modulo_asignado: str,
-                 nivel_acceso: int = 1):
-        # HERENCIA: reutilizamos toda la lógica de UsuarioGaleria
-        super().__init__(id_usuario, nombre, correo, telefono, contraseña)
-
-        # Atributos exclusivos de AdministradorGaleria
-        self.modulo_asignado = modulo_asignado
-        self._nivel_acceso = nivel_acceso
-
     # ------------------------------------------------------------------
     # PROPIEDAD DE SOLO LECTURA para nivel_acceso
     # ------------------------------------------------------------------
@@ -55,35 +55,18 @@ class AdministradorGaleria(UsuarioGaleria):
         return self._nivel_acceso
 
     # ------------------------------------------------------------------
-    # MÉTODOS PROPIOS DE ADMINISTRADORGALERIA
+    # MÉTODOS PROPIOS DE ADMINISTRADORGALERIA -  Aprueba la publicación de una obra, cambiando su disponibilidad
+           #a visible para el público en general
     # ------------------------------------------------------------------
-
-    def aprobarPublicacionObra(self, obra) -> str:
-        """
-        Aprueba la publicación de una obra, cambiando su disponibilidad
-        a visible para el público en general.
-
-        Args:
-            obra: objeto ObraArte a aprobar.
-
-        Returns:
-            str: mensaje de confirmación.
-        """
+    def aprobarPublicacionObra(self, obra) -> str: # obra: objeto ObraArte a aprobar.
+       
         obra.disponibilidad = "Disponible"
         return f"✅ Obra '{obra.titulo}' aprobada y publicada en la galería."
 
+
     def modificarComisiones(self, nuevo_porcentaje: float) -> str:
-        """
-        Simula la modificación del porcentaje de comisión que la
-        plataforma cobra por cada venta realizada.
+        #Simula la modificación del porcentaje de comisión que la plataforma cobra por cada venta realizada.
 
-        Args:
-            nuevo_porcentaje (float): nuevo porcentaje de comisión
-                (ej. 0.10 para 10%).
-
-        Returns:
-            str: mensaje de confirmación.
-        """
         return f"⚙️ Comisión de la plataforma actualizada a {nuevo_porcentaje * 100}%."
 
     def gestionarUsuarios(self, gestor, accion: str, id_usuario: int) -> str:
@@ -98,9 +81,6 @@ class AdministradorGaleria(UsuarioGaleria):
             accion (str): "ver" o "eliminar".
             id_usuario (int): identificador del usuario sobre el que
                 se ejecuta la acción.
-
-        Returns:
-            str: resultado de la acción solicitada.
         """
         if self._nivel_acceso < 2:
             return "⛔ No tienes el nivel de acceso suficiente para esta acción."
@@ -112,32 +92,17 @@ class AdministradorGaleria(UsuarioGaleria):
         else:
             return "❌ Acción no reconocida. Usa 'ver' o 'eliminar'."
 
-    def verReportes(self, gestor) -> str:
-        """
-        Muestra un reporte general del sistema, delegando la consulta
-        de usuarios en GestorGaleria.
+    def verReportes(self, gestor) -> str: # gestor (GestorGaleria): instancia del gestor del sistema.
 
-        Args:
-            gestor (GestorGaleria): instancia del gestor del sistema.
-
-        Returns:
-            str: reporte general.
-        """
         return f"📊 Reporte general:\n{gestor.listar_usuarios()}"
 
     # ------------------------------------------------------------------
     # POLIMORFISMO: sobrescritura de mostrarPanel()
     # ------------------------------------------------------------------
-
     def mostrarPanel(self) -> str:
-        """
-        Sobrescribe el método de UsuarioGaleria con la vista
-        específica del rol AdministradorGaleria.
 
-        Returns:
-            str: panel personalizado para el rol Administrador.
-        """
         return (f"🛡️ Panel Administrador | {self.nombre}\n"
                 f"Módulo asignado: {self.modulo_asignado}\n"
                 f"Nivel de acceso: {self.nivel_acceso}\n"
                 f"Control total del sistema")
+    #retorna un panel personalizado para el rol Administrador
