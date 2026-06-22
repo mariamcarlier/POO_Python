@@ -1,5 +1,5 @@
 # Este archivo contiene la clase Cliente, una SUBCLASE de UsuarioGaleria.
-"""         Pilares de POO aplicados en este archivo:
+"""  📂Módulo #2 -Cliente      Pilares de POO aplicados en este archivo:
     - HERENCIA: Cliente extiende de UsuarioGaleria, reutilizando
       id_usuario, nombre, correo, telefono y toda la lógica de contraseña sin volver a escribirla.
 

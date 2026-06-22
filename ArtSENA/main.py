@@ -2,6 +2,7 @@
 from models.UsuariosGaleria import UsuarioGaleria
 from services.Gestor_Galeria import GestorGaleria #2
 from models.Cliente import Cliente #3
+from models.Artista import Artista #4
 
 # Instanciamos un usuario base (en la práctica nunca se usa
 # UsuarioGaleria directamente, siempre sus subclases, pero
@@ -77,5 +78,31 @@ print(gestor.crear_usuario(cliente1))
 print(gestor.ver_usuario(10))
 
 # ----------------------------------------------------------------------------------
-print("\n")
+print("\n") #4
 # ----------------------------------------------------------------------------------
+
+gema = Artista(
+    id_usuario=1,
+    nombre="Gema Vadillo",
+    correo="gema.vadillo@artesena.com",
+    telefono="+34 612 34 56 78",
+    contraseña="segura2026",
+    portafolio_url="instagram.com/gemavadillo",
+    ubicacion_stand="Stand Alley #4 - Comic Con Madrid"
+)
+
+print(gema.nombre)                  # Gema Vadillo (heredado)
+print(gema.ubicacion_stand)         # Stand Alley #4 - Comic Con Madrid (lectura permitida)
+print(gema.actualizarStand("Stand B2 - Festival Celsius 232"))  # único modo de cambiarlo
+
+print(gema.mostrarPanel())          # panel propio de Artista (polimorfismo)
+
+# Confirmamos que ubicacion_stand NO se puede sobrescribir directamente:
+try:
+    gema.ubicacion_stand = "Intento directo"  # esto debe fallar
+except AttributeError as e:
+    print(f"❌ Como se esperaba, esto falla: {e}")
+
+# Registramos a Gema también en el gestor
+print(gestor.crear_usuario(gema))
+print(gestor.listar_usuarios())     # ahora muestra Cliente Y Artista juntos

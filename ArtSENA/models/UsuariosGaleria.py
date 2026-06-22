@@ -1,4 +1,4 @@
-"""📂Módulo: usuario_galeria.py
+"""📂Módulo #1 : usuario_galeria.py
 Proyecto: ArtSENA - Plataforma de Comercio y Exposición de Arte Digital🎨 🧑🏼‍🎨
 
 Este archivo contiene la clase UsuarioGaleria, que es la CLASE PADRE 🦸🏼‍♂️
