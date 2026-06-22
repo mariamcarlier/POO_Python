@@ -3,8 +3,9 @@ from models.UsuariosGaleria import UsuarioGaleria
 from services.Gestor_Galeria import GestorGaleria #2
 from models.Cliente import Cliente #3
 from models.Artista import Artista #4
+from models.Administrador_Galeria import AdministradorGaleria #5
 
-# Instanciamos un usuario base (en la práctica nunca se usa
+# #1. Instanciamos un usuario base (en la práctica nunca se usa
 # UsuarioGaleria directamente, siempre sus subclases, pero
 # sirve para probar que la clase padre funciona bien)
 usuario_prueba = UsuarioGaleria(
@@ -23,7 +24,7 @@ print(usuario_prueba.verificarContraseña("nueva123"))           # True
 print(usuario_prueba.mostrarPanel())       # Panel genérico de usuario"""
 
 # ----------------------------------------------------------------------------------
-print("\n")
+print("\n") #2
 # ----------------------------------------------------------------------------------
 # Creamos el gestor (vacío al inicio)
 gestor = GestorGaleria()
@@ -106,3 +107,39 @@ except AttributeError as e:
 # Registramos a Gema también en el gestor
 print(gestor.crear_usuario(gema))
 print(gestor.listar_usuarios())     # ahora muestra Cliente Y Artista juntos
+
+
+# ----------------------------------------------------------------------------------
+print("\n") #5
+
+admin1 = AdministradorGaleria(
+    id_usuario=99,
+    nombre="Mariam Carlier Alvarado",
+    correo="mariam00estudio@gmail.com",
+    telefono="+57 300 123456",
+    contraseña="super_aprendiz22",
+    modulo_asignado="Moderación de obras",
+    nivel_acceso=3
+)
+
+print(admin1.nombre)              # heredado
+print(admin1.mostrarPanel())      # panel propio de Administrador (polimorfismo)
+print(admin1.modificarComisiones(0.12))  # comisión actualizada a 12.0%
+
+# Registramos al admin en el gestor
+print(gestor.crear_usuario(admin1))
+
+# Probamos gestionarUsuarios delegando en el gestor
+print(admin1.gestionarUsuarios(gestor, "ver", 10))       # ve a Andrea (Cliente)
+print(admin1.gestionarUsuarios(gestor, "eliminar", 10))  # elimina a Andrea
+print(admin1.verReportes(gestor))                         # reporte general
+
+# 5.1 Demostracion cmpleta del polimorfismo
+print("\n=== DEMOSTRACIÓN DE POLIMORFISMO ===")
+usuarios_variados = [cliente1, gema, admin1]
+
+for usuario in usuarios_variados:
+    # La MISMA línea de código produce 3 resultados completamente
+    # distintos, según el tipo real del objeto en memoria.
+    print(usuario.mostrarPanel())
+    print("-" * 40)
