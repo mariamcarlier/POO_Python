@@ -1,4 +1,4 @@
-# ← Mi punto de entrada para probar todo junto, ya que ni metodo en polimorfismo es mostrarpanel
+# ← Mi punto de entrada para probar todo junto, ya que mi metodo en polimorfismo es mostrarpanel
 from models.UsuariosGaleria import UsuarioGaleria
 
 # Instanciamos un usuario base (en la práctica nunca se usa
