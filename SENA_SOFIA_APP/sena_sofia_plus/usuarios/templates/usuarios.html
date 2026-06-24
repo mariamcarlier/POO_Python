@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de usuarios</title>
+</head>
+<body>
+    <h1>Lista de Usuarios</h1>
+    <ul>
+        <!--Templates tags de django = Django Tags ({% ... %}) Etiquetas-->
+        {% for usuario in usuarios.html %}
+            <li>{{usuario.nombre}} {{usuario.apellido}}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
