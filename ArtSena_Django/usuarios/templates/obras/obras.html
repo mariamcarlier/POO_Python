@@ -1,0 +1,87 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Galería de Obras — ArtSENA{% endblock %}
+
+{% block content %}
+
+<section class="page-hero">
+  <p class="section-eyebrow">Obras disponibles</p>
+  <h1 class="page-title">Galería</h1>
+  <p class="page-subtitle">Explora las obras registradas en ArtSENA</p>
+</section>
+
+<!-- Filtros por técnica -->
+<div class="filtros-bar" role="group" aria-label="Filtrar por técnica">
+  <a href="{% url 'obras' %}"
+     class="filtro-btn {% if not tecnica_activa %}filtro-btn--active{% endif %}">
+    Todas
+  </a>
+  <a href="?tecnica=oleo"
+     class="filtro-btn {% if tecnica_activa == 'oleo' %}filtro-btn--active{% endif %}">
+    Óleo
+  </a>
+  <a href="?tecnica=acuarela"
+     class="filtro-btn {% if tecnica_activa == 'acuarela' %}filtro-btn--active{% endif %}">
+    Acuarela
+  </a>
+  <a href="?tecnica=escultura"
+     class="filtro-btn {% if tecnica_activa == 'escultura' %}filtro-btn--active{% endif %}">
+    Escultura
+  </a>
+  <a href="?tecnica=digital"
+     class="filtro-btn {% if tecnica_activa == 'digital' %}filtro-btn--active{% endif %}">
+    Digital
+  </a>
+  <a href="?tecnica=fotografia"
+     class="filtro-btn {% if tecnica_activa == 'fotografia' %}filtro-btn--active{% endif %}">
+    Fotografía
+  </a>
+</div>
+
+<!-- Lista de obras desde la BD -->
+<section class="obras-section obras-section--full" aria-label="Galería de obras">
+  {% if obras %}
+  <div class="obras-grid obras-grid--masonry">
+    {% for obra in obras %}
+    <article class="obra-card">
+      <div class="obra-placeholder obra-placeholder--lg" aria-label="{{ obra.titulo }}">
+        <span class="obra-emoji">
+          {% if obra.tecnica == 'digital' %}🖥️
+          {% elif obra.tecnica == 'escultura' %}🗿
+          {% elif obra.tecnica == 'fotografia' %}📷
+          {% else %}🖼️
+          {% endif %}
+        </span>
+        <!-- Badge de disponibilidad -->
+        <span class="disponibilidad-badge disponibilidad-badge--{{ obra.disponibilidad }}">
+          {{ obra.get_disponibilidad_display }}
+        </span>
+      </div>
+      <div class="obra-body">
+        <span class="obra-tecnica obra-tecnica--{{ obra.tecnica }}">{{ obra.get_tecnica_display }}</span>
+        <h3 class="obra-titulo">{{ obra.titulo }}</h3>
+        <p class="obra-autor">{{ obra.autor }} · {{ obra.anio }}</p>
+        {% if obra.dimensiones %}
+        <p class="obra-dimensiones">📐 {{ obra.dimensiones }}</p>
+        {% endif %}
+        <div class="obra-footer">
+          <span class="obra-precio">${{ obra.precio|floatformat:0 }}</span>
+          <a href="{% url 'detalle_obra' obra.pk %}" class="obra-link">Ver más →</a>
+        </div>
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+
+  <p class="obras-count">{{ obras.count }} obra{{ obras.count|pluralize }} encontrada{{ obras.count|pluralize }}</p>
+
+  {% else %}
+  <div class="empty-state">
+    <span class="empty-icon">◎</span>
+    <p>No hay obras con esa técnica todavía.</p>
+    <a href="{% url 'obras' %}" class="btn btn-ghost">Ver todas las obras</a>
+  </div>
+  {% endif %}
+</section>
+
+{% endblock %}

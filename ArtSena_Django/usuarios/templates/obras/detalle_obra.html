@@ -1,0 +1,86 @@
+{% extends 'base/base.html' %}
+
+{% block title %}{{ obra.titulo }} — ArtSENA{% endblock %}
+
+{% block content %}
+
+<section class="detalle-section" aria-label="Detalle de la obra">
+  <div class="detalle-inner">
+
+    <!-- Imagen / placeholder de la obra -->
+    <div class="detalle-visual">
+      <div class="detalle-placeholder">
+        <span class="detalle-emoji">
+          {% if obra.tecnica == 'digital' %}🖥️
+          {% elif obra.tecnica == 'escultura' %}🗿
+          {% elif obra.tecnica == 'fotografia' %}📷
+          {% else %}🖼️
+          {% endif %}
+        </span>
+      </div>
+      <span class="disponibilidad-badge disponibilidad-badge--{{ obra.disponibilidad }} disponibilidad-badge--lg">
+        {{ obra.get_disponibilidad_display }}
+      </span>
+    </div>
+
+    <!-- Información de la obra -->
+    <div class="detalle-info">
+      <a href="{% url 'obras' %}" class="detalle-back">← Volver a galería</a>
+
+      <span class="obra-tecnica obra-tecnica--{{ obra.tecnica }}">{{ obra.get_tecnica_display }}</span>
+      <h1 class="detalle-titulo">{{ obra.titulo }}</h1>
+      <p class="detalle-autor">Por <strong>{{ obra.autor }}</strong></p>
+
+      <div class="detalle-meta">
+        <div class="meta-item">
+          <span class="meta-label">Año</span>
+          <span class="meta-value">{{ obra.anio }}</span>
+        </div>
+        {% if obra.dimensiones %}
+        <div class="meta-item">
+          <span class="meta-label">Dimensiones</span>
+          <span class="meta-value">{{ obra.dimensiones }}</span>
+        </div>
+        {% endif %}
+        <div class="meta-item">
+          <span class="meta-label">Técnica</span>
+          <span class="meta-value">{{ obra.get_tecnica_display }}</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Registrada</span>
+          <span class="meta-value">{{ obra.fecha_registro }}</span>
+        </div>
+      </div>
+
+      {% if obra.descripcion %}
+      <p class="detalle-descripcion">{{ obra.descripcion }}</p>
+      {% endif %}
+
+      {% if obra.artista %}
+      <div class="detalle-artista">
+        <span class="meta-label">Artista</span>
+        <p class="artista-nombre-detalle">{{ obra.artista.nombre }}</p>
+        {% if obra.artista.estilo_artistico %}
+        <span class="artista-estilo">{{ obra.artista.estilo_artistico }}</span>
+        {% endif %}
+      </div>
+      {% endif %}
+
+      <div class="detalle-precio-box">
+        <span class="detalle-precio">${{ obra.precio|floatformat:0 }}</span>
+        {% if obra.disponibilidad == 'disponible' %}
+        <button class="btn btn-primary" type="button" onclick="alert('Función en desarrollo — aquí irá el carrito 🛒')">
+          Agregar al carrito
+        </button>
+        {% else %}
+        <button class="btn btn-disabled" disabled type="button">
+          {{ obra.get_disponibilidad_display }}
+        </button>
+        {% endif %}
+      </div>
+    </div>
+
+  </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,131 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}ArtSENA — Galería de Arte Digital{% endblock %}
+
+{% block content %}
+
+<!-- ══ HERO ══ -->
+<section class="hero" aria-label="Bienvenida">
+  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Galería de Arte Digital · SENA</p>
+    <h1 class="hero-title">
+      Donde el arte<br>
+      <em>cobra vida</em>
+    </h1>
+    <p class="hero-subtitle">
+      Plataforma de gestión de artistas, obras y clientes.<br>
+      Construida con Python, Django y POO.
+    </p>
+    <div class="hero-actions">
+      <a href="{% url 'obras' %}"    class="btn btn-primary">Ver galería</a>
+      <a href="{% url 'artistas' %}" class="btn btn-ghost">Conocer artistas</a>
+    </div>
+  </div>
+  <div class="hero-deco" aria-hidden="true">
+    <span class="deco-num">✦</span>
+  </div>
+</section>
+
+<!-- ══ ESTADÍSTICAS ══ -->
+<section class="stats-section" aria-label="Estadísticas">
+  <div class="stats-grid">
+    <div class="stat-card">
+      <span class="stat-number">{{ total_obras }}</span>
+      <span class="stat-label">Obras registradas</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-number">{{ total_artistas }}</span>
+      <span class="stat-label">Artistas activos</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-number">{{ total_clientes }}</span>
+      <span class="stat-label">Clientes</span>
+    </div>
+    <div class="stat-card stat-card--poo">
+      <span class="stat-number">4</span>
+      <span class="stat-label">Pilares POO aplicados</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══ OBRAS RECIENTES ══ -->
+<section class="obras-section" aria-label="Obras recientes">
+  <div class="section-header">
+    <p class="section-eyebrow">Disponibles ahora</p>
+    <h2 class="section-title">Obras recientes</h2>
+    <a href="{% url 'obras' %}" class="section-link">Ver todas →</a>
+  </div>
+
+  {% if obras_recientes %}
+  <div class="obras-grid">
+    {% for obra in obras_recientes %}
+    <article class="obra-card" data-id="{{ obra.pk }}">
+      <div class="obra-placeholder" aria-label="Obra de arte">
+        <span class="obra-emoji">🖼️</span>
+      </div>
+      <div class="obra-body">
+        <span class="obra-tecnica obra-tecnica--{{ obra.tecnica }}">{{ obra.get_tecnica_display }}</span>
+        <h3 class="obra-titulo">{{ obra.titulo }}</h3>
+        <p class="obra-autor">{{ obra.autor }} · {{ obra.anio }}</p>
+        <div class="obra-footer">
+          <span class="obra-precio">${{ obra.precio|floatformat:0 }}</span>
+          <a href="{% url 'detalle_obra' obra.pk %}" class="obra-link">Ver más →</a>
+        </div>
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="empty-state">
+    <span class="empty-icon">◎</span>
+    <p>Aún no hay obras registradas.</p>
+    <p class="empty-hint">Agrégalas desde <a href="/admin/">el panel de administración</a>.</p>
+  </div>
+  {% endif %}
+</section>
+
+<!-- ══ SECCIÓN POO ══ -->
+<section class="poo-section" aria-label="Pilares POO">
+  <div class="section-header">
+    <p class="section-eyebrow">Arquitectura del proyecto</p>
+    <h2 class="section-title">4 Pilares de la POO aplicados</h2>
+  </div>
+  <div class="poo-grid">
+    <div class="poo-card">
+      <span class="poo-icon">🏛️</span>
+      <h3 class="poo-name">Abstracción</h3>
+      <p class="poo-desc">
+        <code>UsuarioGaleria</code> es una clase abstracta (<code>abstract = True</code>)
+        que define la estructura sin crear tabla propia.
+      </p>
+    </div>
+    <div class="poo-card">
+      <span class="poo-icon">👨‍👩‍👧</span>
+      <h3 class="poo-name">Herencia</h3>
+      <p class="poo-desc">
+        <code>Artista</code>, <code>Cliente</code> y <code>AdministradorGaleria</code>
+        heredan de <code>UsuarioGaleria</code> vía <code>super().__init__()</code>.
+      </p>
+    </div>
+    <div class="poo-card">
+      <span class="poo-icon">🔒</span>
+      <h3 class="poo-name">Encapsulamiento</h3>
+      <p class="poo-desc">
+        <code>__contraseña</code> es privado. <code>_telefono</code> es protegido.
+        El acceso se controla con métodos getter/setter.
+      </p>
+    </div>
+    <div class="poo-card">
+      <span class="poo-icon">🎭</span>
+      <h3 class="poo-name">Polimorfismo</h3>
+      <p class="poo-desc">
+        <code>mostrarPanel()</code> se comporta diferente según el tipo de usuario:
+        artista ve su portafolio, cliente su carrito, admin el control total.
+      </p>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

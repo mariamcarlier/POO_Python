@@ -1,0 +1,56 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Artistas — ArtSENA{% endblock %}
+
+{% block content %}
+
+<section class="page-hero">
+  <p class="section-eyebrow">Comunidad creativa</p>
+  <h1 class="page-title">Artistas</h1>
+  <p class="page-subtitle">Creadores registrados en la galería ArtSENA</p>
+</section>
+
+<section class="artistas-section" aria-label="Lista de artistas">
+  {% if artistas %}
+  <div class="artistas-grid">
+    {% for artista in artistas %}
+    <article class="artista-card">
+      <div class="artista-avatar" aria-hidden="true">
+        {{ artista.nombre|first|upper }}
+      </div>
+      <div class="artista-body">
+        <h2 class="artista-nombre">{{ artista.nombre }}</h2>
+        <p class="artista-correo">{{ artista.correo }}</p>
+
+        {% if artista.estilo_artistico %}
+        <span class="artista-estilo">{{ artista.estilo_artistico }}</span>
+        {% endif %}
+
+        {% if artista.ubicacion_stand %}
+        <p class="artista-ubicacion">📍 {{ artista.ubicacion_stand }}</p>
+        {% endif %}
+
+        <div class="artista-footer">
+          <span class="artista-obras">
+            {{ artista.obras.count }} obra{{ artista.obras.count|pluralize }}
+          </span>
+          {% if artista.portfolio_url %}
+          <a href="{{ artista.portfolio_url }}" target="_blank" class="artista-link" rel="noopener">
+            Portafolio →
+          </a>
+          {% endif %}
+        </div>
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="empty-state">
+    <span class="empty-icon">🎨</span>
+    <p>No hay artistas registrados aún.</p>
+    <p class="empty-hint">Agrégalos desde <a href="/admin/">el panel de administración</a>.</p>
+  </div>
+  {% endif %}
+</section>
+
+{% endblock %}

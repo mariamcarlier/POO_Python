@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="ArtSENA — Galería de Arte Digital"/>
+  <title>{% block title %}ArtSena{% endblock %}</title>
+
+  <!-- Google Fonts: Cormorant Garamond (display) + DM Sans (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+
+  <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
+  {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+  <!-- ══ NAVBAR ══ -->
+  <nav class="navbar" role="navigation" aria-label="Navegación principal">
+    <a class="nav-brand" href="{% url 'inicio' %}">
+      <span class="brand-art">Art</span><span class="brand-sena">SENA</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="{% url 'inicio' %}"    class="nav-link">Inicio</a></li>
+      <li><a href="{% url 'artistas' %}" class="nav-link">Artistas</a></li>
+      <li><a href="{% url 'obras' %}"    class="nav-link">Galería</a></li>
+    </ul>
+    <button class="nav-toggle" aria-label="Menú móvil" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- ══ CONTENIDO PRINCIPAL ══ -->
+  <main id="main-content">
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- ══ FOOTER ══ -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <p class="footer-brand"><span class="brand-art">Art</span><span class="brand-sena">SENA</span></p>
+      <p class="footer-copy">Galería de Arte Digital · Proyecto SENA ADSO · 2026</p>
+      <p class="footer-poo">
+        Aplicando POO: Herencia · Encapsulamiento · Polimorfismo · Abstracción
+      </p>
+    </div>
+  </footer>
+
+  <script src="{% static 'js/script.js' %}"></script>
+  {% block extra_js %}{% endblock %}
+</body>
+</html>
