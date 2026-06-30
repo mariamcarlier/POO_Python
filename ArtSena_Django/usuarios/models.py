@@ -58,4 +58,7 @@ class ObraArte(models.Model):
     artista = models.ForeignKey(Artista, on_delete=models.CASCADE, related_name='obras', null=True, blank=True)
 
     def __str__(self):
-        return f"'{self.titulo}' por {self.artista.nombre} ({self.disponibilidad})"         
+        if self.artista:
+            return f"'{self.titulo}' por {self.artista.nombre} ({self.disponibilidad})"
+        else:
+            return f"'{self.titulo}' (sin artista) ({self.disponibilidad})"   
