@@ -60,7 +60,7 @@
       <div class="obra-body">
         <span class="obra-tecnica obra-tecnica--{{ obra.tecnica }}">{{ obra.get_tecnica_display }}</span>
         <h3 class="obra-titulo">{{ obra.titulo }}</h3>
-        <p class="obra-autor">{{ obra.autor }} · {{ obra.anio }}</p>
+        <p class="obra-autor">{{ obra.artista.nombre }} · {{ obra.anio }}</p>
         {% if obra.dimensiones %}
         <p class="obra-dimensiones">📐 {{ obra.dimensiones }}</p>
         {% endif %}
