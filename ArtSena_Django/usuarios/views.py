@@ -41,12 +41,3 @@ def detalle_obra(request, pk):
         'obra': obra,
     }
     return render(request, 'obras/detalle_obra.html', context)
-
-
-def detalle_obra(request, pk): #como parametro se agrego pk
-    # Obtener una sola obra o lanzar error 404
-    obra = get_object_or_404(ObraArte, pk=pk)
-    context = {
-        'obra': obra,
-    }
-    return render(request, 'obras/detalle_obra.html', context)

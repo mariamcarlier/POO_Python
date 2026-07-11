@@ -15,7 +15,7 @@ def saludar(request):
 #relacion usuario servidor
 def usuarios (request):
     template = loader.get_template('usuarios.html')
-    usuarios = Usuario.objects.all() .values()
+    usuarios = Usuario.objects.all() .values() # select * from usuarios_
 
         #referenciar los datos del backend con el fronted - Crear un Context = CONTEXTO
     context=  {
