@@ -1,16 +1,23 @@
 from django.contrib import admin
-
 from .models import ObraArte
 
-#admin.site.register(ObraArte) forma de regitro simple
+# --- Registro simple (sin personalización) ---
+# admin.site.register(ObraArte)  # forma de registro simple
 
+# --- Registro con personalización (decorador) ---
 @admin.register(ObraArte)  # forma de registro con decorador
-class ObraArteAdmin(admin.ModelAdmin):
-    list_display = ('titulo', 'autor', 'fecha_creacion', 'precio')  # Campos que se mostrarán en la lista de administración
-    search_fields = ('titulo', 'autor')  # Campos por los que se puede buscar
-    list_filter = ('fecha_creacion',)  # Filtros para la lista de administración
-    ordering = ('-fecha_creacion',)  # Ordenamiento por defecto
+class AdminObras(admin.ModelAdmin):
+    # Campos que se mostrarán en la lista de administración
+    list_display = ('titulo', 'artista', 'fecha_registro', 'precio', 'disponibilidad')
     
-
-
-# Register your models here.
+    # Campos por los que se puede buscar
+    search_fields = ('titulo', 'artista__nombre', 'tecnica')  # artista__nombre para buscar por nombre del artista
+    
+    # Filtros para la lista de administración
+    list_filter = ('disponibilidad', 'tecnica', 'anio')
+    
+    # Ordenamiento por defecto (los más recientes primero)
+    ordering = ('-fecha_registro',)
+    
+    # Campos de solo lectura (no se pueden editar)
+    readonly_fields = ('fecha_registro',)
