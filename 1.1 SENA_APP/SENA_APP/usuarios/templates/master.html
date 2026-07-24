@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+    {% block title %}SENA Sofia Plus{% endblock %}
+    </title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; color: #222; }
+        header { background-color: #39A900; color: #fff; padding: 20px 40px; }
+        header h1 { margin: 0; font-size: 22px; }
+        nav a { color: #fff; margin-right: 15px; text-decoration: none; }
+        main { padding: 30px 40px; min-height: 60vh; }
+        footer { background-color: #1A3C34; color: #fff; text-align: center; padding: 15px;
+        }
+
+    </style>
+    {% block extra_css %}{% endblock %}
+
+</head>
+<body>
+    <!-- ===== HEADER institucional ===== -->
+    <header>
+        <h1>Servicio Nacional de Aprendizaje - SENA</h1>
+        <nav>
+            <a href="/usuarios/">Usuarios</a>
+            <a href="/saludar/">Inicio</a>
+        </nav>
+    </header>
+
+    <!-- ===== BODY: contenido variable de cada página ===== -->
+    </main>
+        {% block content %}
+        <p>Contenido por defecto de master.html</p>
+        {% endblock %}
+    </main>
+
+
+    <!-- ===== FOOTER institucional ===== -->
+    <footer>
+    <p>&copy; 2026 SENA - Análisis y Desarrollo de Software (ADSO)</p>
+    </footer>
+    
+</body>
+</html>
